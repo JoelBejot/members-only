@@ -2,8 +2,8 @@
 <article class="media box">
   <figure class="media-left">
     <p class="image is-64x64"> <%# why is it p here and div in the bottom, test this %>
-      <% if member_signed_in? %>
-        <img src=<%= current_member.icon %>>
+      <% if user_signed_in? %>
+        <img src=<%= current_user.icon %>>
       <% else %>
         <img src="https://www.flaticon.com/svg/static/icons/svg/1077/1077114.svg">
       <% end %>
@@ -41,7 +41,7 @@
         <p class="help is-danger">Please enter a story</p>
       <% end %>
     </div>
-    <% if member_signed_in? %>
+    <% if user_signed_in? %>
       <%= f.submit "Post the secret", class: "button is-primary"%>
     <% else %>
       <%= f.submit "Log in to post", class: "button is-danger"%>

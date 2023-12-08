@@ -1,0 +1,29 @@
+<div class="column is-one-quarter">
+  <nav class="panel">
+    <p class="panel-heading">Topics</p>
+
+    <% unless @posts.length < 6 %>
+      <% nums = [] %>
+      <% c = 0 %>
+      <% max = 5 %>
+      <% if @posts.length > 15 %>
+        <% max = 10 %>
+      <% end %>
+      <% while c < 5 do %>
+        <% n = rand(@posts.length-1) %>
+        <% unless nums.include? n %>
+          <% nums.push(n) %>
+          <% c += 1 %>
+        <% end %>
+      <% end %>
+
+      <% nums.each do |n| %>
+        <% post = @posts[n] %>
+        <p class="panel-block">
+          <%= link_to post.title, post_path(post[:id]), class: "is-link" %>
+        </p>
+      <% end %>
+    <% end %>
+    
+  </nav>
+</div>

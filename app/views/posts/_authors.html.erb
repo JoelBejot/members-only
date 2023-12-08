@@ -1,0 +1,43 @@
+<div class="column is-one-quarter">
+  <nav class="panel">
+    <p class="panel-heading">Authors</p>
+    
+    <% unless @members.length < 6 %>
+      <% nums = [] %>
+      <% c = 0 %>
+      <% max = 5 %>
+      <% while c < 5 do %>
+        <% n = rand(@members.length-1) %>
+        <% if !nums.include?(n) && @members[n].posts.length != 0 %>
+          <% nums.push(n) %>
+          <% c += 1 %>
+        <% end %>
+      <% end %>
+
+      <% nums.each do |n| %>
+        <% member = @members[n] %>
+        <div class="panel-block">
+        <article class="media">
+          <div class="media-left">
+            <figure class="image is-64x64">
+              <img src=<%= member.icon %> alt=<%= member.icon %>>
+            </figure>
+          </div>
+          <div class="media-content">
+            <div class="content">
+              <% if member_signed_in? %>
+                <strong><%= link_to member.username, root_path, class: "is-link" %> </strong><br />
+                <small>Latest Post: <%= link_to member.posts.last.title, post_path(member.posts.last[:id]), class: "is_link" %></small>
+              <% else %>
+                <strong>Log in to see the author's name</strong><br />
+                <small><%= link_to member.posts.last.title, post_path(member.posts.last[:id]), class: "is_link" %></small>
+              <% end %>
+            </div>
+          </div>
+        </article>
+      </div>
+      <% end %>
+    <% end %>
+
+  </nav>
+</div>

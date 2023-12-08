@@ -1,0 +1,39 @@
+<%# This part is to show each post %>
+<% @posts.each do |post| %>
+  <div class="box">
+    <article class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+      <img src=<%= post.member.icon %> >
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content">
+          <% if member_signed_in? %>
+          <strong><%= post.member.username %></strong><br />
+          <% else %>
+          <strong>Log in to see the author's name</strong>
+          <% end %>
+          <p><strong><%= post.title %>:</strong> <%= post.body %></p>
+          <p>Posted on: <%= post.created_at.strftime("%d-%m-%Y (%A)") %> </p>
+        </div>
+
+        <% if member_signed_in? && current_member.email == post.member.email %>
+        <nav class="level">
+          <div class="level-left is-mobile">
+            <%= link_to post, class: "level-item" do %> <%# what does the loop do here %>
+              <span class="icon"><i class="fa fa-link" aria-hidden="true"></i></span>
+            <% end %>
+            <%= link_to edit_post_path(post), class: "level-item" do %>
+              <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+            <% end %>
+            <%= link_to post, method: :delete, data: { confirm: "Are you sure to delete this post?"} do %>
+              <span class="icon"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+            <% end %>
+          </div>
+        </nav>
+        <% end %>
+      </div>
+    </article>
+  </div>
+<% end %>
